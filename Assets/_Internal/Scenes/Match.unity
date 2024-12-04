@@ -859,7 +859,7 @@ GameObject:
   - component: {fileID: 870430602}
   - component: {fileID: 870430603}
   m_Layer: 7
-  m_Name: RockWhite
+  m_Name: RookWhite
   m_TagString: Piece
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1900,7 +1900,7 @@ GameObject:
   - component: {fileID: 1334222306}
   - component: {fileID: 1334222307}
   m_Layer: 7
-  m_Name: RockBlack
+  m_Name: RookBlack
   m_TagString: Piece
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -38,8 +38,10 @@ public class BoardManager : MonoBehaviour
 
 			if (allOnTable)
 			{
-				// If all pieces are on the table, change the stance of BoardManager to Dynamic
+				CancelMove(); //stop unwanted second hold of the last piece
+							  // If all pieces are on the table, change the stance of BoardManager to Dynamic
 				CurrentGameStance = GameStance.Dynamic;
+
 				Debug.Log("All pieces are on the table. Stance changed to Dynamic.");
 				yield break; // Completely stop the loop
 			}
@@ -52,14 +54,12 @@ public class BoardManager : MonoBehaviour
 		{
 			HandleStaticStateInput();
 		}
-		if (CurrentGameStance == GameStance.Dynamic)
+		 if (CurrentGameStance == GameStance.Dynamic)
 		{
 			HandleDynamicStateInput();
 		}
 	}
 
-	private float lastClickTime = -1f; // Tracks the last mouse click time
-	private float clickCooldown = 0.05f; // Minimum time between clicks (in seconds)
 
 	public void HandleDynamicStateInput()
 	{
@@ -74,14 +74,10 @@ public class BoardManager : MonoBehaviour
 			}
 		}
 
-		// Ignore clicks if within the cooldown period
-		if (Time.time - lastClickTime < clickCooldown) return;
 
-		// Update the last click time
-		lastClickTime = Time.time;
 
 		// Proceed only if the left mouse button is pressed
-		if (!Input.GetMouseButton(0)) return;
+		if (!Input.GetMouseButtonUp(0)) return;
 
 		// Exit if the mouse is outside the screen bounds
 		if (Input.mousePosition.x < 0 || Input.mousePosition.y < 0 ||
@@ -119,7 +115,7 @@ public class BoardManager : MonoBehaviour
 	private void HandleStaticStateInput()
 	{
 		// Proceed only if the left mouse button is pressed
-		if (!Input.GetMouseButton(0)) return;
+		if (!Input.GetMouseButtonUp(0)) return;
 		// Raycast for any object
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
